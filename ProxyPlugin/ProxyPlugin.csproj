@@ -1,6 +1,6 @@
 <Project Sdk="Dalamud.NET.Sdk/15.0.0">
   <PropertyGroup>
-    <Version>0.3.0.0</Version>
+    <Version>0.3.1.0</Version>
     <AssemblyName>ProxyPlugin</AssemblyName>
     <RootNamespace>ProxyPlugin</RootNamespace>
     <PackageProjectUrl>https://github.com/Loskh/ProxyPlugin</PackageProjectUrl>
@@ -19,7 +19,10 @@
       (keep it out of deps.json) and ship 0Harmony.dll under libs\ ourselves; HarmonyLoader pre-loads
       it into the Default ALC at startup. See HarmonyLoader.cs.
     -->
-    <PackageReference Include="Lib.Harmony" Version="2.4.2" GeneratePathProperty="true">
+    <!-- 2.4.2's embedded MonoMod is incompatible with the .NET 10 runtime Dalaumd 15 uses
+         (ILGeneratorProxy[TTarget] constraint violation while creating patch wrappers).
+         2.4.3 ships a self-contained net10.0 0Harmony.dll with a fixed MonoMod baked in. -->
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" GeneratePathProperty="true">
       <ExcludeAssets>runtime</ExcludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
